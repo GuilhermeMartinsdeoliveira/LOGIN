@@ -2,9 +2,9 @@ body{
 background-color: white
 
 }
-
+ 
 label{
-    
+  
 color: white;
 background-color: black;
 font-family: Arial, Helvetica, sans-serif;
@@ -29,9 +29,11 @@ h2{
 }
 
 form{
+    padding: 20px;
 margin: 1%;
 background-color: darkred;
-border-radius: 50px;
+border-radius: 10px;
+width: 75%;
 }
 
 

@@ -1,58 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Consulta de CEP</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 <body>
-    
-<h1>preencha o formulário</h1>
-<h2>conclua o cadstro para ter acesso a loja</h2>
-<form>
-        <h1>usuario</h1>
-    
-    <!-- nome -->
-    <label for="nome" class="label">nome</label>
-    <input type="text" id="nome" name="nome" readonly/>
-    <br>
-    <!-- email -->
-    <label for="email" class="label">email</label>
-    <input type="text" id="email" name="email" readonly />
-    <br>
-    <h1> Consultar cep </h1>
-    <!-- cep -->
-    <form id="form cep">
-        <label for="cep" class="label">cep:</label>
-        <input type="text" id="cep" name="cep" onblur="consularcep(this.value)" />
-        <button type="submit">Consultar</button>
-        <BR>
-        <!-- logradouro -->
-        <label for="logradouro" class="label">Logradouro:</label>
+    <h1>Consulta de Endereço</h1>
+    <form id="form-cep">
+        <label for="cep" class="label">CEP:</label>
+        <input type="text" id="cep" name="cep" onblur="consultarCEP(this.value)" />
+        <br/>
+        <br/>
+        <label for="logradouro">Logradouro:</label>
         <input type="text" id="logradouro" name="logradouro" readonly />
-        <br />
-        <!-- bairro -->
-        <label for="bairro" class="label">Bairro:</label>
+        <br/>
+        <br/>
+        <label for="bairro">Bairro:</label>
         <input type="text" id="bairro" name="bairro" readonly />
-        <br />
-        <!-- cidade -->
-        <label for="cidade" class="label">Cidade:</label>
+        <br/>
+        <br/>
+        <label for="cidade">Cidade:</label>
         <input type="text" id="cidade" name="cidade" readonly />
-        <br />
-        <!-- estado -->
-        <label for="estado" class="label">Estado:</label>
+        <br/>
+        <br/>
+        <label for="estado">Estado:</label>
         <input type="text" id="estado" name="estado" readonly />
     </form>
-    <cep class="js"></cep>
-    </SCRipt:src>
-    </form>
-</body>
 
-</body>
+    <script>
+      function consultarCEP(cep) {
+        if (cep.length === 8) { // Verifica se o CEP tem 8 dígitos
+          fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then(data => preencherCampos(data))
+            .catch(error => console.error('Erro:', error));
+        }
+      }
 
+      function preencherCampos(dados) {
+        document.getElementById('logradouro').value = dados.logradouro || '';
+        document.getElementById('bairro').value = dados.bairro || '';
+        document.getElementById('cidade').value = dados.localidade || '';
+        document.getElementById('estado').value = dados.uf || '';
+      }
+    </script>
+</body>
 </html>
